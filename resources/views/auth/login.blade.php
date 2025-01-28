@@ -4,9 +4,9 @@
 @section('content')
 <div class="flex items-center justify-center min-h-screen">
     <div class="bg-white p-10 rounded-lg shadow-md w-96">
-        {{-- <div class="mt-4 mb-4 flex items-center justify-end">
+        <div class="mt-4 mb-4 flex items-center justify-end">
             <a href="/" class="flex gap-1 hover:gap-2"><x-icons.arrow-back />Back</a>
-        </div> --}}
+        </div>
         <div class="mt-4 mb-2">
             @if(@session('status'))
             <div class="alert alert-success">

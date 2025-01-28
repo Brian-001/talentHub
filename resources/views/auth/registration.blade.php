@@ -32,6 +32,14 @@
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required class="mt-1 p-2 w-full rounded-md border border-slate-500">
             </div>
+            <div class="mb-4">
+                <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                <select name="role" id="role" :required="true" class="mt-1 p-2 w-full rounded-md border border-slate-500">
+                    <option value="" disabled selected>--Select one--</option>
+                    <option value="employee">Employee</option>
+                    <option value="employer">Employer</option>
+                </select>
+            </div>
             <div class="flex items-center justify-between">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Register</button>
             </div>
