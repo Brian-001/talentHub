@@ -33,11 +33,12 @@
                 <input type="password" id="password_confirmation" name="password_confirmation" required class="mt-1 p-2 w-full rounded-md border border-slate-500">
             </div>
             <div class="mb-4">
-                <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-                <select name="role" id="role" :required="true" class="mt-1 p-2 w-full rounded-md border border-slate-500">
-                    <option value="" disabled selected>--Select one--</option>
-                    <option value="employee">Employee</option>
-                    <option value="employer">Employer</option>
+                <label for="role" class="block text-sm font-medium text-gray-700">Select Role</label>
+                <select name="role_id" id="role" class="mt-1 p-2 w-full rounded-md border border-slate-500">
+                    <option value="">Select Role</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="flex items-center justify-between">

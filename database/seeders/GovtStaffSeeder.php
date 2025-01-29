@@ -15,11 +15,11 @@ class GovtStaffSeeder extends Seeder
     public function run(): void
     {
         //
-        User::factory()->create([
-            'name' => 'GovtStaff',
-            'email' => 'govtstaff@gmail.com',
-            'password' => bcrypt('govtstaff12345678'),
-            'role' => Role::GovtStaff->value,
-        ]);
+        // User::factory()->create([
+        //     'name' => 'GovtStaff',
+        //     'email' => 'govtstaff@gmail.com',
+        //     'password' => bcrypt('govtstaff12345678'),
+        //     'role' => Role::GovtStaff->value,
+        // ]);
     }
 }

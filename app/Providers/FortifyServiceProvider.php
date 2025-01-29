@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\Role;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -48,7 +49,7 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::registerView(function(){
-            return view('auth.registration');
+            return view('auth.registration', ['roles' =>Role::all()]);
         });
     }
 }

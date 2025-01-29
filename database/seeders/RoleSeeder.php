@@ -21,17 +21,17 @@ class RoleSeeder extends Seeder
         // Role::create(['name' => 'GovtStaff']);
 
         $admin = Role::where('name', 'Admin')->first();
-        $admin->permissions()->attach(Permission::all());
+        $admin->permissions()->sync(Permission::all());
 
         $employee = Role::where('name', 'Employee')->first();
-        $employee->permissions()->attach(Permission::whereIn('name', ['create-employee', 'view-employee',
+        $employee->permissions()->sync(Permission::whereIn('name', ['create-employee', 'view-employee',
         'update-employee', 'delete-employee'])->get());
 
         $employer = Role::where('name', 'Employer')->first();
-        $employer->permissions()->attach(Permission::whereIn('name', ['create-employer', 'view-employer', 
+        $employer->permissions()->sync(Permission::whereIn('name', ['create-employer', 'view-employer', 
         'update-employer', 'delete-employer', 'hire-employee'])->get());
 
         $govtStaff = Role::where('name', 'GovtStaff')->first();
-        $govtStaff->permissions()->attach(Permission::whereIn('name', ['approve-employee'])->get());
+        $govtStaff->permissions()->sync(Permission::whereIn('name', ['approve-employee'])->get());
     }
 }
