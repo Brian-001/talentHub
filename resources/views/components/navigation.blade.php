@@ -21,13 +21,26 @@
                     <div class="flex space-x-4">
                         <a href="#" class="text-gray-800 hover:bg-gray-200 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
                         <a href="#" class="text-gray-800 hover:bg-gray-200 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        @if (Auth::check() && Auth::user()->role_id === 1)
+                            <a href="{{ route('admin.dashboard') }}" class="text-gray-800 hover:bg-gray-200 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</a>   
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="hidden sm:block sm:ml-6">
                 <div class="flex space-x-4">
-                    <a href="{{route('login')}}" class="text-gray-800 bg-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                    <a href="{{route('register')}}" class="text-gray-800 bg-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                    @if (Auth::check())
+                        <a href="{{route('logout')}}" 
+                        class="text-gray-800 bg-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+                        <form id="logout-form" action = "{{route('logout')}}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    @else
+                        <a href="{{route('login')}}" class="text-gray-800 bg-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                        <a href="{{route('register')}}" class="text-gray-800 bg-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                    @endif
                 </div>
             </div>
         </div>
