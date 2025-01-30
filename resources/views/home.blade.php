@@ -6,7 +6,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-16">
     <div class="px-4 order-2 md:order-1">
         
-        <h1 class="text-cyan-500 text-xl tracking-wide text-start md:text-center mt-4 mb-4">Find Your Dream Job. Hire the Best Talent</h1>
+        <h1 class="text-cyan-700 text-xl md:text-3xl lg:text-3xl tracking-wide text-start md:text-center  mt-4 mb-4">Find Your Dream Job. Hire the Best Talent</h1>
         <h2 class="text-lg font-semibold">
             Mission
         </h2>

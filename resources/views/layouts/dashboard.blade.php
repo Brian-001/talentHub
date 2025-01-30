@@ -42,6 +42,15 @@
                             <a wire:navigate href="#" class="block py-2 px-4 rounded-md">Profile</a>
                         </div>
                     @endif
+                    @if (Auth::check() && Auth::user()->role_id === 3)
+                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                            <a wire:navigate href="{{route('employer.employerdashboard-home')}}" class="block py-2 px-4 rounded-md">Home</a>
+                        </div>
+                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                            <a wire:navigate href="{{route('employer.employerdashboard-profile')}}" class="block py-2 px-4 rounded-md">Profile</a>
+                        </div>
+                        
+                    @endif
                 </nav>
             </div>
         </div>
