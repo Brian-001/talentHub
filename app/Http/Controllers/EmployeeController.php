@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
@@ -15,6 +16,16 @@ class EmployeeController extends Controller
         return view(('employee.dashboard'));
     }
 
+    public function home()
+    {
+        return view('employee.employee-home');
+    }   
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('employee.employee-profile', compact('user'));
+    }
     /**
      * Show the form for creating a new resource.
      */

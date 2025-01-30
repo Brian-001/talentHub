@@ -21,6 +21,8 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('employee')->group(function(){
     Route::get('/dashboard', [EmployeeController::class, 'index'])->name('employee.dashboard');
+    Route::get('/home', [EmployeeController::class, 'home'])->name('employee.employee-home');
+    Route::get('/profile', [EmployeeController::class, 'profile'])->name('employee.employee-profile');
 });
 
 Route::prefix('employer')->group(function(){

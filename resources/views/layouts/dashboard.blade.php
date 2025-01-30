@@ -23,6 +23,7 @@
                     <div class="mb-4 hover:text-gray-900">
                         <a href="/" class="block py-2 px-2 hover:bg-cyan-200 font-semibold rounded-md">Back to Main Page</a>
                     </div>
+                    {{-- Checks for Athenticated user and A user of role Admin --}}
                     @if (Auth::check() && Auth::user()->role_id === 1)
                         <div class="hover:shadow-md hover:shadow-cyan-300">
                             <a wire:navigate href="{{ route('admin.home') }}" class="block py-2 px-4 rounded-md">Home</a>
@@ -34,14 +35,18 @@
                             <a wire:navigate href="{{ route('admin.settings') }}" class="block py-2 px-4 rounded-md">Settings</a>
                         </div>
                     @endif
+
+                    {{-- Checks for Athenticated user and A user of role Employee --}}
                     @if (Auth::check() && Auth::user()->role_id === 2)
                         <div class="hover:shadow-md hover:shadow-cyan-300">
-                            <a wire:navigate href="#" class="block py-2 px-4 rounded-md">Home</a>
+                            <a wire:navigate href="{{route('employee.employee-home')}}" class="block py-2 px-4 rounded-md">Home</a>
                         </div>
                         <div class="hover:shadow-md hover:shadow-cyan-300">
-                            <a wire:navigate href="#" class="block py-2 px-4 rounded-md">Profile</a>
+                            <a wire:navigate href="{{route('employee.employee-profile')}}" class="block py-2 px-4 rounded-md">Profile</a>
                         </div>
                     @endif
+
+                    {{-- Checks for Athenticated user and A user of role Employer --}}
                     @if (Auth::check() && Auth::user()->role_id === 3)
                         <div class="hover:shadow-md hover:shadow-cyan-300">
                             <a wire:navigate href="{{route('employer.employerdashboard-home')}}" class="block py-2 px-4 rounded-md">Home</a>
@@ -49,7 +54,6 @@
                         <div class="hover:shadow-md hover:shadow-cyan-300">
                             <a wire:navigate href="{{route('employer.employerdashboard-profile')}}" class="block py-2 px-4 rounded-md">Profile</a>
                         </div>
-                        
                     @endif
                 </nav>
             </div>
