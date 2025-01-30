@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -31,7 +32,8 @@ class AdminController extends Controller
     // Settings page
     public function settings()
     {
-        return view('dashboard-settings');
+        $user = Auth::user();
+        return view('dashboard-settings', compact('user'));
     }
 
     /**
