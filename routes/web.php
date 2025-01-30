@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,3 +19,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/settings', [AdminController::class, 'settings'])->name('admin.settings');
 });
 
+Route::prefix('employee')->group(function(){
+    Route::get('/dashboard', [EmployeeController::class, 'index'])->name('employee.dashboard');
+});
+
+Route::prefix('employer')->group(function(){
+    Route::get('/dashboard', [EmployerController::class, 'index'])->name('employer.dashboard');
+});

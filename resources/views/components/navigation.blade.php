@@ -24,6 +24,12 @@
                         @if (Auth::check() && Auth::user()->role_id === 1)
                             <a href="{{ route('admin.dashboard') }}" class="text-gray-800 hover:bg-gray-200 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</a>   
                         @endif
+                        @if (Auth::check() && Auth::user()->role_id === 2)
+                            <a href="{{route('employee.dashboard')}}" class="text-gray-800 hover:bg-gray-200 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Employee Dashboard</a>
+                        @endif
+                        @if (Auth::check() && Auth::user()->role_id === 3)
+                            <a href="{{route('employer.dashboard')}}" class="text-gray-800 hover:bg-gray-200 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Employer Dashboard</a>
+                        @endif
                     </div>
                 </div>
             </div>

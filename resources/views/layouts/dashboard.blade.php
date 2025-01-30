@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Dashboard</title>
+        <title>@yield('title', 'Dashboard')</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -18,24 +18,33 @@
         <!-- Sidebar -->
         <div class="bg-cyan-800 text-white w-64 min-h-screen">
             <div class="p-4">
-                <h1 class="text-2xl font-bold">Dashboard</h1>
+                <h1 class="text-xl font-bold">@yield('title')</h1>
                 <nav class="mt-4">
                     <div class="mb-4 hover:text-gray-900">
                         <a href="/" class="block py-2 px-2 hover:bg-cyan-200 font-semibold rounded-md">Back to Main Page</a>
                     </div>
-                    <div class="hover:shadow-md hover:shadow-cyan-300">
-                        <a wire:navigate href="{{ route('admin.home') }}" class="block py-2 px-4 rounded-md">Home</a>
-                    </div>
-                    <div class="hover:shadow-md hover:shadow-cyan-300">
-                        <a wire:navigate href="{{ route('admin.users') }}" class="block py-2 px-4 rounded-md">Users</a>
-                    </div>
-                    <div class="hover:shadow-md hover:shadow-cyan-300">
-                        <a wire:navigate href="{{ route('admin.settings') }}" class="block py-2 px-4 rounded-md">Settings</a>
-                    </div>
+                    @if (Auth::check() && Auth::user()->role_id === 1)
+                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                            <a wire:navigate href="{{ route('admin.home') }}" class="block py-2 px-4 rounded-md">Home</a>
+                        </div>
+                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                            <a wire:navigate href="{{ route('admin.users') }}" class="block py-2 px-4 rounded-md">Users</a>
+                        </div>
+                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                            <a wire:navigate href="{{ route('admin.settings') }}" class="block py-2 px-4 rounded-md">Settings</a>
+                        </div>
+                    @endif
+                    @if (Auth::check() && Auth::user()->role_id === 2)
+                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                            <a wire:navigate href="#" class="block py-2 px-4 rounded-md">Home</a>
+                        </div>
+                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                            <a wire:navigate href="#" class="block py-2 px-4 rounded-md">Profile</a>
+                        </div>
+                    @endif
                 </nav>
             </div>
         </div>
-
         <!-- Main Content -->
         <div class="flex-1 p-8">
             @yield('content') <!-- This will render the content of each page -->
