@@ -141,3 +141,26 @@ public function boot(): void
 
 `contains('name', $permission->name)` Checks if the collection of permissions contains a the same name as the current `$permission`
 
+Since Fortify doesn't have traditional Controllers as the standard laravel applications, navigate to the `app\Actions\Fortify\CreateNewUser.php`and ensure the following:
+
+```php
+Validator::make($input, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => [
+            'required',
+            'string',
+            'email',
+            'max:255',
+            Rule::unique(User::class),
+        ],
+        'password' => $this->passwordRules(),
+        'role_id' => ['required', 'exists:roles,id'], //Add role_id to the validation rules
+    ])->validate();
+    return User::create([
+        'name' => $input['name'],
+        'email' => $input['email'],
+        'password' => Hash::make($input['password']),
+        'role_id' => $input['role_id'], // Assign role_id to the user
+    ]);
+```
+
