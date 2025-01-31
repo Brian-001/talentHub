@@ -78,10 +78,66 @@ public function up(): void
 
 `constrained()` ensures that foreign key constraint is enforced.
 
-`cascade(onDelete)` means when a record in referenved roles table is deleted, all corresponding records in `role_permission` table will be deleted.
+`cascade(onDelete)` means when a record in referenced either in roles or permissions table is deleted, all corresponding records in `role_permission` table will be deleted.
+
+`primary(['role_id', 'permission_id']);` is the composite keyof the table. It ensures that a unique combination of a role and permission can only exist once in table.
 
 In `Role` model
 
 ```php
-
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'role_permission');
+    }
 ```
+
+In `Permission` model 
+
+```php
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_permission');
+    }
+```
+
+In `User` model add the following:
+
+```php
+protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role_id',//Add this line 
+    ];
+```
+
+Create `AuthServiceProvider` and ensure the following code is there in `boot()`
+
+```php
+public function boot(): void
+    {
+        //
+        $this->registerPolicies();
+
+        foreach(Permission::all() as $permission){
+            Gate::define($permission->name, function($user) use ($permission){
+                return $user->role->permissions->contains('name', $permission->name);
+            });
+        }
+    }
+```
+
+`registerPolicies()` used to register any polices defined in your application
+
+`foreach(Permission::all() as $permission){` iterates all permissions that are defined 
+
+`Gate::define()` registers a new authorization gate
+
+`$permission->name` is the name of the gate that will be used to check for permission. ie create users
+
+`$user->role` ensures that there is a relationship between User and Role models
+
+`$user->role->permissions` retrieves permissions that are associated with user role.
+
+`contains('name', $permission->name)` Checks if the collection of permissions contains a the same name as the current `$permission`
+
