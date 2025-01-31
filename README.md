@@ -1,45 +1,87 @@
 # Laravel and Fortify user multi-auth
 
-### Employee model 
+Create a laravel project
+
+Install Laravel Fortify
+
+Publish the config file
+
+Create auth folder in views and populate them with the following basic view files:
+<ul>
+    <li>login</li>
+    <li>registration</li>
+</ul>
+
+Register the following in `app\Providers\FortifyServiceProvider`:
 
 ```php
-<?php
-
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
-class Employee extends Authenticatable
+public function boot(): void
 {
-    //
-    use HasFactory, Notifiable;
+    Fortify::loginView(function(){
+        return view('auth.login');
+    });
 
-    protected $table = 'employees';
-
-    protected $fillable = [
-        'user_id',
-        'phone_number',
-        'full_name',
-        'job_role',
-        'qualifications',
-        'expected_salary',
-        'cv_path',
-        'is_approved_by_govt',
-    ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    Fortify::registerView(function(){
+        return view('auth.registration', ['roles' =>Role::all()]);
+    });
 }
-
 ```
 
-`extends authenticatable` indicates that the `Employee` model inherits from `Illuminate\Foundation\Auth\User` class which provides the necessary functionality for authentication eg.(password hashing, session mananagement)
+Create the following migration tables:
+<ul>
+    <li>roles</li>
+    <li>permissions</li>
+    <li>role_permission</li>
+</ul>
 
-`protected $table = 'employees'` specifies the model corresponds to `employees` table
+Create their respective Models
 
-`Employee` belongs to a single instance of `User`
+In `roles` table
+
+```php
+public function up(): void
+    {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+    }
+```
+In `permissions` table
+
+```php
+public function up(): void
+    {
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+    }
+```
+In `role_permission` table
+
+```php
+public function up(): void
+    {
+        Schema::create('role_permission', function (Blueprint $table) {
+            $table->foreignId('role_id')->constrained()->onDelete('cascade');
+            $table->foreignId('permission_id')->constrained()->onDelete('cascade');
+            $table->primary(['role_id', 'permission_id']);
+            $table->timestamps();
+        });
+    }
+```
+
+`role_id` references primary key of roles table. Similary, `permission_id` referenced id in permissions table.
+
+`constrained()` ensures that foreign key constraint is enforced.
+
+`cascade(onDelete)` means when a record in referenved roles table is deleted, all corresponding records in `role_permission` table will be deleted.
+
+In `Role` model
+
+```php
+
+```

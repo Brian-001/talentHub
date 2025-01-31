@@ -32,6 +32,20 @@ class ListingController extends Controller
     public function store(Request $request)
     {
         //
+        $validatedData = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'phone_number' => 'required|string',
+            'nationality' => 'required|string',
+            'job_title' => 'required|string',
+            'job_qualifications' => 'required|string',
+            'resumecv_path' => 'required|file|mimes:pdf',
+        ]);
+
+        $resumecv_path = $request->file('resumecv_path')->store('resumes');
+
+        Listing::create($validatedData, $resumecv_path);
+
+        return view('employee.employee-home')->with('success', 'Your job application details have been created successfully');
 
     }
 
@@ -41,6 +55,9 @@ class ListingController extends Controller
     public function show(string $id)
     {
         //
+        $listing = Listing::findOrFail($id);
+
+        return view('employee.listings.show', compact('listing'));
     }
 
     /**
@@ -49,6 +66,8 @@ class ListingController extends Controller
     public function edit(string $id)
     {
         //
+        $listing = Listing::findOrFail($id);
+        return view('employee.listings.edit', compact('listing'));
     }
 
     /**
