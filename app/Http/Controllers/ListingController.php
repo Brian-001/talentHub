@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -13,8 +14,9 @@ class ListingController extends Controller
     public function index()
     {
         //
+        $listing = Auth::user();
         $listings = Listing::all();
-        return view('employee.listings.index', compact('listings'));
+        return view('employee.listings.index', compact('listing', 'listings'));
     }
 
     /**
@@ -23,6 +25,7 @@ class ListingController extends Controller
     public function create()
     {
         //
+        
         return view('employee.listings.create');
     }
 
@@ -41,11 +44,19 @@ class ListingController extends Controller
             'resumecv_path' => 'required|file|mimes:pdf',
         ]);
 
-        $resumecv_path = $request->file('resumecv_path')->store('resumes');
+        $resumecv_path = $request->file('resumecv_path')->store('resumes', 'public');
 
-        Listing::create($validatedData, $resumecv_path);
+        $listing = Listing::create($validatedData);
+        // $listing = Listing::create([
+        //     'full_name' => $validatedData['full_name'],
+        //     'phone_number' => $validatedData['phone_number'],
+        //     'nationality' => $validatedData['nationality'],
+        //     'job_title' => $validatedData['job_title'],
+        //     'job_qualifications' => $validatedData['job_qualifications'],
+        //     'resumecv_path' => $resumecv_path,
+        // ]);
 
-        return view('employee.employee-home')->with('success', 'Your job application details have been created successfully');
+        return view('employee.listings.index')->with('success', 'Your job application details have been created successfully');
 
     }
 
@@ -76,6 +87,26 @@ class ListingController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $validatedData = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'phone_number' => 'required|string',
+            'nationality' => 'required|string',
+            'job_title' => 'required|string',
+            'job_qualifications' => 'required|string',
+            'resumecv_path' => 'required|file|mimes:pdf',
+        ]);
+
+        //Checks if the resume or cv was uploaded and update the path if necessary
+        if($request->hasFile('resumecv_path')){
+            $resumecv_path = $request->file('resumecv_path')->store('resumes', 'public');
+            $validated['resumecv_path'] = $resumecv_path;
+        }
+
+        $listing = Listing::findOrFail($id);
+        $listing->update($validatedData);
+
+        return redirect()->route('employee.listings.index')->with('success', 'Job application updated successfully');
+
     }
 
     /**
@@ -84,5 +115,8 @@ class ListingController extends Controller
     public function destroy(string $id)
     {
         //
+        $listing = Listing::findOrFail($id);
+        $listing ->delete();
+        return redirect()->route('employee.listings.index')->with('success', 'Job application deleted successfully');
     }
 }

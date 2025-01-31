@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\ListingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,6 +24,13 @@ Route::prefix('employee')->group(function(){
     Route::get('/dashboard', [EmployeeController::class, 'index'])->name('employee.dashboard');
     Route::get('/home', [EmployeeController::class, 'home'])->name('employee.employee-home');
     Route::get('/profile', [EmployeeController::class, 'profile'])->name('employee.employee-profile');
+});
+
+Route::prefix('listings')->group(function(){
+    Route::get('/', [ListingController::class, 'index'])->name('employee.listings.index');
+    Route::get('/create', [ListingController::class, 'create'])->name('employee.listings.create');
+    Route::post('/store', [ListingController::class, 'store'])->name('employee.listings.store');
+    
 });
 
 Route::prefix('employer')->group(function(){

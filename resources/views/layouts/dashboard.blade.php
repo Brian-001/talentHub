@@ -45,7 +45,7 @@
                             <a wire:navigate href="{{route('employee.employee-profile')}}" class="block py-2 px-4 rounded-md">Profile</a>
                         </div>
                         <div class="hover:shadow-md hover:shadow-cyan-300">
-                            <a wire:navigate href="#" class="block py-2 px-4 rounded-md">Job</a>
+                            <a wire:navigate href="{{route('employee.listings.index')}}" class="block py-2 px-4 rounded-md">Job</a>
                         </div>
                     @endif
 

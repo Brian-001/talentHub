@@ -2,7 +2,7 @@
 
 @section('content')
 <h1 class="text-3xl font-bold mb-4">Create Job Listing</h1>
-    <form action="{{ route('employee.listings.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    <form action="#" method="POST" enctype="multipart/form-data" class="space-y-6">
         @csrf
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
