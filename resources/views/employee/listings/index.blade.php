@@ -5,7 +5,7 @@
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Your Job Application</h1>
         <div>
-            <a href="{{route('employee.listings.create')}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create</a>
+            <a wire:navigate href="{{route('employee.listings.create')}}" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded">Create</a>
         </div>
     </div>
 
@@ -16,7 +16,7 @@
         </div>
         <div class="p-4">
             <p class="mb-2"><strong>Status:</strong> Status</p>
-            <p class="mb-2"><strong>Full Name:</strong> </p>
+            <p class="mb-2"><strong>Full Name:</strong>  </p>
             <p class="mb-2"><strong>Phone Number:</strong> </p>
             <p class="mb-2"><strong>Nationality:</strong> </p>
             <p class="mb-2"><strong>Job Title:</strong></p>

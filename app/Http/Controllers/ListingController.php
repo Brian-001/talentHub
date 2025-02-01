@@ -37,24 +37,20 @@ class ListingController extends Controller
         //
         $validatedData = $request->validate([
             'full_name' => 'required|string|max:255',
-            'phone_number' => 'required|string',
+            'phone_number' => 'required|string|max:15',
             'nationality' => 'required|string',
             'job_title' => 'required|string',
             'job_qualifications' => 'required|string',
             'resumecv_path' => 'required|file|mimes:pdf',
         ]);
 
-        $resumecv_path = $request->file('resumecv_path')->store('resumes', 'public');
+        if($request->hasFile('resumecv_path')) {
+            $resumecv_path = $request->file('resumecv_path')->store('resumes', 'public');
+            $validatedData['resumecv_path'] = $resumecv_path;
+        }
 
-        $listing = Listing::create($validatedData);
-        // $listing = Listing::create([
-        //     'full_name' => $validatedData['full_name'],
-        //     'phone_number' => $validatedData['phone_number'],
-        //     'nationality' => $validatedData['nationality'],
-        //     'job_title' => $validatedData['job_title'],
-        //     'job_qualifications' => $validatedData['job_qualifications'],
-        //     'resumecv_path' => $resumecv_path,
-        // ]);
+
+        Listing::create($validatedData);
 
         return view('employee.listings.index')->with('success', 'Your job application details have been created successfully');
 
