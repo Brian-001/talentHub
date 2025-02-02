@@ -13,10 +13,18 @@ class ListingController extends Controller
      */
     public function index()
     {
-        //
-        $listing = Auth::user();
-        $listings = Listing::all();
-        return view('employee.listings.index', compact('listing', 'listings'));
+        //Check if user is authenticated
+        if(!Auth::check()){
+            return redirect('')->route('login')->with('error', 'You must be logged in to view your job application');
+        }
+
+        $user = Auth::user();
+        //Fetch the employee's listing (if any)
+        $listing = $user->listing;
+
+        //Pass the listing to the view
+        return view('employee.listings.index', compact('listing'));
+
     }
 
     /**
@@ -49,6 +57,8 @@ class ListingController extends Controller
             $validatedData['resumecv_path'] = $resumecv_path;
         }
 
+        //Associate the listing with the currently authenticated user
+        $validatedData['user_id'] = Auth::id(); // Add user_id to validatedData
 
         Listing::create($validatedData);
 

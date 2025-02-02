@@ -14,5 +14,11 @@ class Listing extends Model
         'job_title',
         'job_qualifications',
         'resumecv_path',
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

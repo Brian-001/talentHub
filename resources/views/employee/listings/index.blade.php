@@ -4,25 +4,36 @@
 <div class="container mx-auto p-4">
     <div class="flex justify-between items-center mb-4">
         <h1 class="text-2xl font-bold">Your Job Application</h1>
-        <div>
-            <a wire:navigate href="{{route('employee.listings.create')}}" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded">Create</a>
-        </div>
+        @if (!$listing)
+            <div>
+                <a wire:navigate href="{{route('employee.listings.create')}}" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded">Create</a>
+            </div> 
+        @endif  
     </div>
 
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-        <div class="bg-gray-100 p-4">
-            <h2 class="text-xl font-semibold">My title</h2>
-            <span class="inline-block bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full">Status</span>
+    @if ($listing)
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div class="bg-gray-100 p-4">
+                <h2 class="text-xl font-semibold">Job Status</h2>
+                <span class="inline-block bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full">Status</span>
+            </div>
+            <div class="p-4">
+                <p class="mb-2"><strong>Status:</strong> Status</p>
+                <p class="mb-2"><strong>Full Name:</strong> {{$listing->full_name}} </p>
+                <p class="mb-2"><strong>Phone Number:</strong> {{$listing->phone_number}} </p>
+                <p class="mb-2"><strong>Nationality:</strong> {{$listing->nationality}} </p>
+                <p class="mb-2"><strong>Job Title:</strong> {{$listing->job_title}}</p>
+                <p class="mb-2"><strong>Job Qualification:</strong>{{$listing->job_qualifications}} </p>
+                <p class="mb-2"><strong>Resume/CV:</strong>
+                    <a href="{{ asset('storage/' . $listing->resumecv_path) }}" target="_blank">{{ $listing->resumecv_path }}</a>
+                </p>
+            </div>
         </div>
-        <div class="p-4">
-            <p class="mb-2"><strong>Status:</strong> Status</p>
-            <p class="mb-2"><strong>Full Name:</strong>  </p>
-            <p class="mb-2"><strong>Phone Number:</strong> </p>
-            <p class="mb-2"><strong>Nationality:</strong> </p>
-            <p class="mb-2"><strong>Job Title:</strong></p>
-            <p class="mb-2"><strong>Job Qualification:</strong> </p>
-            <p class="mb-2"><strong>Resume/CV:</strong></p>
+    @else
+        <div class="bg-white shadow-md rounded-lg overflow-hidden p-4 text-center">
+            <p class="text-lg font-semibold">You haven't created a job application yet.</p>
+            <p class="mt-2">Click the "Create" button above to get started.</p>
         </div>
-    </div>
+    @endif
 </div>
 @endsection

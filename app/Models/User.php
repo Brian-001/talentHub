@@ -48,4 +48,8 @@ class User extends Authenticatable
         ];
     }
     
+    public function listing()
+    {
+        return $this->hasOne(Listing::class);
+    }
 }

@@ -35,13 +35,13 @@
                 <input type="password" id="password" name="password" required class="mt-1 p-2 w-full rounded-md border border-slate-500">
             </div>
             <div class="flex items-center justify-between">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button>
+                <button type="submit" class="bg-cyan-500 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded">Login</button>
                 
                 <a href="{{route('register')}}">Create a new account?</a>
             </div>
             @if (Route::has('password.request'))
                 <div class="mt-4 mb-2 flex items-center justify-center">
-                    <a href="{{route('password.request')}}" class="text-blue-500 hover:underline">Forgot Password?</a>
+                    <a href="{{route('password.request')}}" class="text-cyan-500 hover:underline">Forgot Password?</a>
                 </div>   
             @endif
         </form>

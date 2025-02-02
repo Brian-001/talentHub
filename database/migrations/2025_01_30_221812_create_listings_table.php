@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); //Add foreign key contraint
             $table->string('full_name');
             $table->string('phone_number', 15);
             $table->string('nationality');
