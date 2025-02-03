@@ -37,4 +37,5 @@ Route::prefix('employer')->group(function(){
     Route::get('/dashboard', [EmployerController::class, 'index'])->name('employer.dashboard');
     Route::get('/home', [EmployerController::class, 'home'])->name('employer.employerdashboard-home');
     Route::get('/profile', [EmployerController::class, 'profile'])->name('employer.employerdashboard-profile');
+    Route::get('/all-listings', [ListingController::class, 'allListings'])->name('employee.listings.all');
 });

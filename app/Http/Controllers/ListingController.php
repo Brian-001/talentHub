@@ -27,6 +27,23 @@ class ListingController extends Controller
 
     }
 
+    public function allListings()
+    {
+        //Check if user is authenticated and has a role_id = 3 (Employer)
+        if(!Auth::check() || Auth::user()->role_id != 3)
+        {
+            abort(403, 'Unauthorized action');
+        }
+
+        //Fetch all employee listings
+        $listings = Listing::with('user') //Eager load with the associated user
+                        ->whereHas('user', function ($query) {
+                            $query->where('role_id', 2); // Only fetch listings for employees role_id = 2
+                        })->get();
+        //Pass the listing to the view
+        return view('employee.listings.all', compact('listings'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
