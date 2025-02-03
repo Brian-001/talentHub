@@ -6,6 +6,9 @@
 <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">All Employee Job Applications</h1>
 
+    <div class="grid grid-cols-2 gap-2 mb-4">
+        @livewire('data-table')
+    </div>
     @if ($listings->isEmpty())
         <p class="text-gray-600">No employee listings found.</p>
     @else
@@ -79,7 +82,7 @@
                             <a href="{{ asset('storage/' . $listing->resumecv_path) }}" target="_blank">View Resume/CV</a>
                         </td>
                         <td class="whitespace-nowrap p-3 text-base">
-                            <p class="text-cyan-600 cursor-pointer">...</p>
+                            <x-icons.ellipsis-horizontal />
                         </td>
                     </tr>  
                 @endforeach
