@@ -62,7 +62,7 @@ class ListingController extends Controller
 
         Listing::create($validatedData);
 
-        return view('employee.listings.index')->with('success', 'Your job application details have been created successfully');
+        return redirect()->route('employee.listings.index')->with('success', 'Your job application details have been created successfully');
 
     }
 
