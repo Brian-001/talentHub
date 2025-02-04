@@ -61,8 +61,30 @@
                             <td class="whitespace-nowrap p-3 text-sm">
                                 <a href="{{ asset('storage/' . $listing->resumecv_path) }}" target="_blank">View Resume/CV</a>
                             </td>
-                            <td class="whitespace-nowrap p-3 text-base">
-                                <x-icons.ellipsis-horizontal />
+                            <td class="whitespace-nowrap p-3 text-sm">
+                                <div class="flex items-center justify-end">
+                                    <x-menu>
+                                        <x-menu.button class="hover:bg-gray-200 rounded" >
+                                            <x-icons.ellipsis-horizontal />
+                                        </x-menu.button>
+                                        <x-menu.items>
+                                            <x-menu.close>
+                                                <x-menu.item 
+                                                wire:click="refund({{$listing->id}})"
+                                                wire:confirm="Are you sure you want to view details of this person?">
+                                                    View
+                                                </x-menu.item>
+                                            </x-menu.close>
+                                            <x-menu.close>
+                                                <x-menu.item 
+                                                wire:click="archive({{$listing->id}})"
+                                                wire:confirm="Are you sure you want to Hire this person?">
+                                                    Hire
+                                                </x-menu.item>
+                                            </x-menu.close>
+                                        </x-menu.items>
+                                    </x-menu>
+                                </div>
                             </td>
                         </tr>  
                     @endforeach
@@ -77,7 +99,7 @@
             </div>
         </div>
     </div>
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center p-4">
         {{ $listings->links('pagination') }}
     </div>
 </div>

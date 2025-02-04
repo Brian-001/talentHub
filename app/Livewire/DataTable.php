@@ -4,10 +4,15 @@ namespace App\Livewire;
 
 use App\Models\Listing;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class DataTable extends Component
 {
+    use WithPagination;
+
     public $search = '';
+
+    
 
     //Applying search filters to the query
     protected function applySearch($query)
@@ -30,7 +35,7 @@ class DataTable extends Component
         $query = $this->applySearch($query);
 
         //Paginate the results
-        $listings = $query->paginate(10);
+        $listings = $query->paginate(4);
 
         return view('livewire.data-table', ['listings' => $listings]);
     }
