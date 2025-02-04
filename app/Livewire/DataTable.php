@@ -25,6 +25,7 @@ class DataTable extends Component
         }
         return $query
         ->where('full_name', 'like', '%'. $this->search .'%')
+        ->orwhere('nationality', 'like', '%'. $this->search .'%')
         ->orWhere('job_title', 'like', '%'. $this->search .'%');
     }
 

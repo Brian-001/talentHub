@@ -35,13 +35,7 @@ class ListingController extends Controller
             abort(403, 'Unauthorized action');
         }
 
-        //Fetch all employee listings
-        $listings = Listing::with('user') //Eager load with the associated user
-                        ->whereHas('user', function ($query) {
-                            $query->where('role_id', 2); // Only fetch listings for employees role_id = 2
-                        })->paginate(4);
-        //Pass the listing to the view
-        return view('employee.listings.all', compact('listings'));
+        return view('employee.listings.all');
     }
 
     /**
