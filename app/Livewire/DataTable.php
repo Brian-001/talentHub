@@ -12,7 +12,10 @@ class DataTable extends Component
 
     public $search = '';
 
-    
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
 
     //Applying search filters to the query
     protected function applySearch($query)
