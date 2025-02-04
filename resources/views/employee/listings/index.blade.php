@@ -15,10 +15,17 @@
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <div class="bg-gray-100 p-4">
                 <h2 class="text-xl font-semibold">Job Status</h2>
-                <span class="inline-block bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full">Status</span>
             </div>
             <div class="p-4">
-                <p class="mb-2"><strong>Status:</strong> Status</p>
+                <p class="mb-2"><strong>Status:</strong> 
+                    <span class="px-2 py-1 text-sm rounded-full 
+                        @if($listing->status === 'pending') bg-yellow-100 text-yellow-800
+                        @elseif($listing->status === 'interview') bg-blue-100 text-blue-800
+                        @elseif($listing->status === 'hired') bg-green-100 text-green-800
+                        @endif">
+                        {{ ucfirst($listing->status) }}
+                    </span>
+                </p>
                 <p class="mb-2"><strong>Full Name:</strong> {{$listing->full_name}} </p>
                 <p class="mb-2"><strong>Phone Number:</strong> {{$listing->phone_number}} </p>
                 <p class="mb-2"><strong>Nationality:</strong> {{$listing->nationality}} </p>

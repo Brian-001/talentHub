@@ -12,9 +12,20 @@ class DataTable extends Component
 
     public $search = '';
 
+    //
     public function updatedSearch()
     {
         $this->resetPage();
+    }
+
+    //
+    public function updateStatus($listingId, $status)
+    {
+        //Find the listing
+        $listing = Listing::findOrFail($listingId);
+
+        //Update the status
+        $listing->update(['status' => $status]);
     }
 
     //Applying search filters to the query
@@ -40,6 +51,7 @@ class DataTable extends Component
 
         //Paginate the results
         $listings = $query->paginate(4);
+        
 
         return view('livewire.data-table', ['listings' => $listings]);
     }

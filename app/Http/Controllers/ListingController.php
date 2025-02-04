@@ -68,6 +68,9 @@ class ListingController extends Controller
             $validatedData['resumecv_path'] = $resumecv_path;
         }
 
+        //Set the default status to 'pending'
+        $validatedData['status'] = 'pending';
+
         //Associate the listing with the currently authenticated user
         $validatedData['user_id'] = Auth::id(); // Add user_id to validatedData
 

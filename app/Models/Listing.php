@@ -15,6 +15,7 @@ class Listing extends Model
         'job_qualifications',
         'resumecv_path',
         'user_id',
+        'status',
     ];
 
     public function user()
