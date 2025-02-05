@@ -11,14 +11,16 @@ class DataTable extends Component
     use WithPagination;
 
     public $search = '';
+    
 
+    public $statusFilter = '';
     //
     public function updatedSearch()
     {
         $this->resetPage();
     }
 
-    //
+    //Applying update filters
     public function updateStatus($listingId, $status)
     {
         //Find the listing
@@ -32,12 +34,16 @@ class DataTable extends Component
     protected function applySearch($query)
     {
         if($this->search === ''){
-            return $query; //If no search term return the original query
+            $query
+            ->where('full_name', 'like', '%'. $this->search .'%')
+            ->orwhere('nationality', 'like', '%'. $this->search .'%')
+            ->orWhere('job_title', 'like', '%'. $this->search .'%');
         }
-        return $query
-        ->where('full_name', 'like', '%'. $this->search .'%')
-        ->orwhere('nationality', 'like', '%'. $this->search .'%')
-        ->orWhere('job_title', 'like', '%'. $this->search .'%');
+        if($this->statusFilter !== ''){
+            $query->where('status', $this->statusFilter);
+        }
+
+        return $query;
     }
 
     public function render()
