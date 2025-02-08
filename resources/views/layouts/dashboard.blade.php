@@ -25,40 +25,46 @@
                     </div>
                     {{-- Checks for Athenticated user and A user of role Admin --}}
                     @if (Auth::check() && Auth::user()->role_id === 1)
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('admin.home') ? 'shadow-md shadow-cyan-300' : '' }}">
                             <a wire:navigate href="{{ route('admin.home') }}" class="block py-2 px-4 rounded-md">Home</a>
                         </div>
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('admin.users') ? 'shadow-md shadow-cyan-300' : '' }}">
                             <a wire:navigate href="{{ route('admin.users') }}" class="block py-2 px-4 rounded-md">Users</a>
                         </div>
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('admin.settings') ? 'shadow-md shadow-cyan-300' : '' }}">
                             <a wire:navigate href="{{ route('admin.settings') }}" class="block py-2 px-4 rounded-md">Settings</a>
+                        </div>
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('employee.listings.all') ? 'shadow-md shadow-cyan-300' : '' }}">
+                            <a wire:navigate href="{{ route('employee.listings.all') }}" class="block py-2 px-4 rounded-md">Listings</a>
                         </div>
                     @endif
 
                     {{-- Checks for Athenticated user and A user of role Employee --}}
                     @if (Auth::check() && Auth::user()->role_id === 2)
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('employee.employee-home') ? 'shadow-md shadow-cyan-300' : '' }}">
                             <a wire:navigate href="{{route('employee.employee-home')}}" class="block py-2 px-4 rounded-md">Home</a>
                         </div>
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('employee.employee-profile') ? 'shadow-md shadow-cyan-300' : '' }}">
                             <a wire:navigate href="{{route('employee.employee-profile')}}" class="block py-2 px-4 rounded-md">Profile</a>
                         </div>
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('employee.listings.index') ? 'shadow-md shadow-cyan-300' : '' }}">
                             <a wire:navigate href="{{route('employee.listings.index')}}" class="block py-2 px-4 rounded-md">Job</a>
                         </div>
                     @endif
 
                     {{-- Checks for Athenticated user and A user of role Employer --}}
                     @if (Auth::check() && Auth::user()->role_id === 3)
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
-                            <a wire:navigate href="{{route('employer.employerdashboard-home')}}" class="block py-2 px-4 rounded-md">Home</a>
+                        <!-- Sidebar Navigation -->
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('employer.employerdashboard-home') ? 'shadow-md shadow-cyan-300' : '' }}">
+                            <a wire:navigate href="{{ route('employer.employerdashboard-home') }}" class="block py-2 px-4 rounded-md">Home</a>
                         </div>
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
-                            <a wire:navigate href="{{route('employer.employerdashboard-profile')}}" class="block py-2 px-4 rounded-md">Profile</a>
+
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('employer.employerdashboard-profile') ? 'shadow-md shadow-cyan-300' : '' }}">
+                            <a wire:navigate href="{{ route('employer.employerdashboard-profile') }}" class="block py-2 px-4 rounded-md">Profile</a>
                         </div>
-                        <div class="hover:shadow-md hover:shadow-cyan-300">
-                            <a wire:navigate href="{{route('employee.listings.all')}}" class="block py-2 px-4 rounded-md">Applications</a>
+
+                        <div class="hover:bg-cyan-600 mb-4 rounded-md {{ request()->routeIs('employee.listings.all') ? 'shadow-md shadow-cyan-300' : '' }}">
+                            <a wire:navigate href="{{ route('employee.listings.all') }}" class="block py-2 px-4 rounded-md">Applications</a>
                         </div>
                     @endif
                 </nav>

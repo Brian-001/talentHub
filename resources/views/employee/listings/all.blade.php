@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Employer Dashboard')
+@section('title')
 
 @section('content')
 <div class="container mx-auto p-4">

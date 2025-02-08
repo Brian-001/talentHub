@@ -20,6 +20,8 @@ class EmployerController extends Controller
     {
         return view('employer.employerdashboard-home');
     }
+
+    
     public function profile()
     {
         $user = Auth::user();

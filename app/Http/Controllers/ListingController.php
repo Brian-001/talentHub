@@ -32,7 +32,7 @@ class ListingController extends Controller
     public function allListings()
     {
         //Check if user is authenticated and has a role_id = 3 (Employer)
-        if(!Auth::check() || Auth::user()->role_id != 3)
+        if(!Auth::check() || Auth::user()->role_id === 3 && Auth::user()->role_id === 1)
         {
             abort(403, 'Unauthorized action');
         }
