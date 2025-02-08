@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
+use App\Status;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -68,8 +70,29 @@ class ListingController extends Controller
             $validatedData['resumecv_path'] = $resumecv_path;
         }
 
-        //Set the default status to 'pending'
-        $validatedData['status'] = 'pending';
+        //Adding log to track validated data before sanitization
+        Log::info('Validated Data Before Sanitization:', $validatedData);
+
+        //Sanitize inputs
+        foreach($validatedData as $key => $value){
+            if(is_array($value)){
+                // Convert array to string (e.g. join elements with a space)
+                $validatedData[$key] = implode('', $value);
+            }elseif(is_string($value)){
+                $validatedData[$key] = (string)($value); //Remove HTML tags
+            }
+            else{
+                $validatedData[$key] = trim($value); //Trim strings
+            }
+        }
+
+        foreach ($validatedData as $key => $value) {
+            if (is_array($value)) {
+                Log::warning("Array detected in validated data for key '$key':", $value);
+            }
+        }
+        //Set the default status to 'pending' using Status Enum
+        $validatedData['status'] = Status::Pending->value;
 
         //Associate the listing with the currently authenticated user
         $validatedData['user_id'] = Auth::id(); // Add user_id to validatedData
@@ -78,6 +101,25 @@ class ListingController extends Controller
 
         return redirect()->route('employee.listings.index')->with('success', 'Your job application details have been created successfully');
 
+    }
+
+    public function updateStatus(string $id, string $newStatus)
+    {
+        //convert the string $newStatus to the corresponding Status Enum
+        $statusEnum = Status::tryFrom($newStatus);
+
+        if(!$statusEnum)
+        {
+            return response()->json(['error' => 'Invalid status'], 400);
+        }
+
+        //Find the listing by Id
+        $listing = Listing::findOrFail($id);
+
+        // update the status
+        $listing->update(['status' => $statusEnum->value]);
+
+        return response()->json(['message' => 'Status updated successfully'], 200);
     }
 
     /**
